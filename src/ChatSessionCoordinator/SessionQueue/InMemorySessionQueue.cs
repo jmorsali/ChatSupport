@@ -10,11 +10,9 @@ public class InMemorySessionQueue : ISessionQueue
 {
     private readonly Queue<ActorChat> actorChatsMainQueue;
 
-    public InMemorySessionQueue(MemoryCache memoryCache, SessionCoordinatorConfiguration configuration)
+    public InMemorySessionQueue(SessionCoordinatorConfiguration configuration)
     {
         actorChatsMainQueue = new Queue<ActorChat>(configuration.MainQueueSize);
-        memoryCache.Set("ChatQueue", actorChatsMainQueue);
-
     }
     public async Task<bool> queueChat(ActorChatCreateDto actorChat)
     {
