@@ -1,6 +1,6 @@
 ﻿namespace ChatSessionCoordinator.Coordinator;
 
-public interface IChatSessionCoordinator
+public interface ISessionCoordinator
 {
     public void Run(CancellationToken cancellationToken) ;
     

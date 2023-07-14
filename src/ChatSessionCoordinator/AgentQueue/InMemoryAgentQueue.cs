@@ -6,9 +6,8 @@ namespace ChatSessionCoordinator.AgentQueue;
 public class InMemoryAgentQueue : IAgentQueue
 {
     private ConcurrentQueue<ActorChat> agentQueue { get; set; }
-    public InMemoryAgentQueue(Agent agent)
+    public InMemoryAgentQueue()
     {
-        Agent = agent;
         agentQueue = new ConcurrentQueue<ActorChat>();
     }
 

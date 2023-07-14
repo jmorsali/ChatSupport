@@ -1,6 +1,5 @@
 ﻿using ChatSessionCoordinator.AgentPool;
 using ChatSessionCoordinator.AgentQueue;
-using ChatSessionCoordinator.Configurations;
 using ChatSessionCoordinator.Coordinator;
 using ChatSessionCoordinator.Models.Enums;
 
@@ -8,18 +7,15 @@ namespace ChatWebApi.Hosting;
 
 public class ChatSessionCoordinatioBackGroundService : BackgroundService
 {
-    private readonly IServiceProvider _provider;
-    private readonly IChatSessionCoordinator _sessionCoordinator;
+    private readonly ISessionCoordinator _sessionCoordinator;
     private readonly IAgentPool _agentPool;
     private readonly IAgentBuilder _agentBuilder;
    
     public ChatSessionCoordinatioBackGroundService(
-        IServiceProvider provider,
-        IChatSessionCoordinator sessionCoordinator,
+        ISessionCoordinator sessionCoordinator,
         IAgentPool agentPool,IAgentBuilder agentBuilder
     )
     {
-        _provider = provider;
         _sessionCoordinator = sessionCoordinator;
         _agentPool = agentPool;
         _agentBuilder = agentBuilder;

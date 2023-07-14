@@ -2,15 +2,16 @@
 using ChatSessionCoordinator.Models.Entities;
 using ChatSessionCoordinator.Models.Enums;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace ChatSessionCoordinator.AgentQueue;
 
 public class AgentBuilder :IAgentBuilder
 {
     private readonly IServiceProvider _provider;
-    private readonly SessionCoordinatorConfiguration _configuration;
+    private readonly IOptions<SessionCoordinatorConfiguration> _configuration;
 
-    public AgentBuilder(IServiceProvider provider,SessionCoordinatorConfiguration configuration)
+    public AgentBuilder(IServiceProvider provider,IOptions<SessionCoordinatorConfiguration> configuration)
     {
         _provider = provider;
         _configuration = configuration;

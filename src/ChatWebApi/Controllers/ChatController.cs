@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ChatWebApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/v1/Chat")]
     public class ChatController : ControllerBase
     {
         private readonly ILogger<ChatController> _logger;
@@ -19,18 +19,18 @@ namespace ChatWebApi.Controllers
             _sessionQueue = sessionQueue;
         }
 
-        [HttpPut(Name = "Create")]
+        [HttpPut("Create")]
         public async Task<ActionResult<ChatCreateResponse>> CreateChatSession([FromBody] ChatCreateRequest chatCreateRequest)
         {
             await _sessionQueue.EnQueueChat(chatCreateRequest.Map());
             return Ok(new ChatCreateResponse());
         }
 
-        [HttpGet(Name = "Poll")]
+        [HttpGet("Poll")]
         public async Task<ActionResult<ChatPollResponse>> PollChatSession(Guid chatId)
         {
             var chat = await _sessionQueue.GetChatById(chatId);
-            return Ok(chat.MapToPollResponse());
+            return Ok(chat?.MapToPollResponse());
         }
     }
 }

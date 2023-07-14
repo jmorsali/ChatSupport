@@ -1,5 +1,6 @@
 ﻿using ChatSessionCoordinator.Configurations;
 using ChatSessionCoordinator.Models.Enums;
+using Microsoft.Extensions.Options;
 
 namespace ChatSessionCoordinator.Models.Entities;
 
@@ -7,9 +8,9 @@ public class Team
 {
     private readonly SessionCoordinatorConfiguration _configuration;
 
-    public Team(SessionCoordinatorConfiguration configuration)
+    public Team(IOptions<SessionCoordinatorConfiguration> configuration)
     {
-        _configuration = configuration;
+        _configuration = configuration.Value;
     }
     public required int Id { get; set; }
     public required string Name { get; set; }

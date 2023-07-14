@@ -2,6 +2,8 @@
 using ChatSessionCoordinator.AgentPool;
 using ChatSessionCoordinator.AgentQueue;
 using ChatSessionCoordinator.Configurations;
+using ChatSessionCoordinator.Coordinator;
+using ChatSessionCoordinator.SessionQueue;
 
 namespace ChatWebApi.Hosting;
 
@@ -14,6 +16,9 @@ public static class DependencyInjection
 
         services.AddSingleton<IAgentBuilder, AgentBuilder>();
         services.AddSingleton<IAgentPool, AgentPool>();
+        services.AddSingleton<IAgentQueue, InMemoryAgentQueue>();
+        services.AddSingleton<ISessionCoordinator, SessionCoordinator>();
+        services.AddSingleton<ISessionQueue, InMemorySessionQueue>();
 
         services.AddOptions<SessionCoordinatorConfiguration>()
             .Bind(configuration.GetSection(SessionCoordinatorConfiguration.SectionName))

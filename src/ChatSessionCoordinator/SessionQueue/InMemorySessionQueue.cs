@@ -5,6 +5,7 @@ using ChatSessionCoordinator.Models.Entities;
 using ChatSessionCoordinator.Models.Mappers;
 using System.Collections.Concurrent;
 using ChatSessionCoordinator.Extension;
+using Microsoft.Extensions.Options;
 
 namespace ChatSessionCoordinator.SessionQueue;
 
@@ -13,9 +14,9 @@ public class InMemorySessionQueue : ISessionQueue
     private readonly SessionCoordinatorConfiguration _configuration;
     private readonly IAgentPool _agentPool;
     private readonly ConcurrentQueue<ActorChat> actorChatsMainQueue;
-    public InMemorySessionQueue(SessionCoordinatorConfiguration configuration, IAgentPool agentPool)
+    public InMemorySessionQueue(IOptions<SessionCoordinatorConfiguration> configuration, IAgentPool agentPool)
     {
-        _configuration = configuration;
+        _configuration = configuration.Value;
         _agentPool = agentPool;
         actorChatsMainQueue = new ConcurrentQueue<ActorChat>();
     }
