@@ -1,19 +1,23 @@
 ﻿using ChatSessionCoordinator.Models.Entities;
+using System.Collections.Concurrent;
 
 namespace ChatSessionCoordinator.AgentQueue;
 
 public class InMemoryAgentQueue : IAgentQueue
 {
-    private Queue<ActorChat> agentQueue { get; set; }
+    private ConcurrentQueue<ActorChat> agentQueue { get; set; }
     public InMemoryAgentQueue(Agent agent)
     {
         Agent = agent;
-        agentQueue = new Queue<ActorChat>();
+        agentQueue = new ConcurrentQueue<ActorChat>();
     }
 
     public Agent Agent { get; set; }
+    public int ItemCount => agentQueue.Count;
+
     public async Task<bool> QueueChat(ActorChat actorChat)
     {
+
         agentQueue.Enqueue(actorChat);
         await Task.Yield();
         return true;

@@ -5,6 +5,8 @@ namespace ChatSessionCoordinator.Models.Entities;
 
 public class Agent
 {
+
+
     public Agent(IAgentQueue agentQueue)
     {
         agentQueue.Agent = this;
@@ -19,7 +21,6 @@ public class Agent
     public AgentStatuses Statuses { get; set; }
     public IAgentQueue Queue { get; }
     public DateTime LastAssignment { get; set; }= DateTime.MinValue;
-
 
     public void AddToTeam(Team? newTeam)
     {

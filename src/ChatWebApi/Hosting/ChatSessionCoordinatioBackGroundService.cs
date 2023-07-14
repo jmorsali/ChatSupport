@@ -38,6 +38,7 @@ public class ChatSessionCoordinatioBackGroundService : BackgroundService
             .Build();
 
         _agentPool.Initialize(agents, _agentBuilder.KickOverflowTeam);
+
         _sessionCoordinator.Run(stoppingToken);
         return Task.CompletedTask;
     }

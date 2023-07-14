@@ -22,18 +22,24 @@ public class AgentPool : IAgentPool
         agents.ForEach(a => a.Shift = DateTime.Now.CurrentShift());
         agents.ForEach(a => a.AddToTeam(CurrentTeam()));
         Agents.AddRange(agents);
-        
+
         HasOverflow = true;
     }
     public Agent? GetAvailableAgent()
     {
         foreach (var level in Enum.GetValues(typeof(AgentLevels)))
         {
-            var juniorAvailable = Agents
-                .Where(a => a.AgentLevel.Level == (AgentLevels)level && a.Statuses == AgentStatuses.Available && a.Shift.IsActive())
-                .MinBy(x => x.LastAssignment);
-            if (juniorAvailable != null)
-                return juniorAvailable;
+            var levelAvailable = Agents
+                .Where(a =>
+                        a.AgentLevel.Level == (AgentLevels)level &&
+                        a.Statuses == AgentStatuses.Available &&
+                        a.Shift.IsActive() &&
+                        a.Queue.ItemCount < a.Team?.MaximumQueueLenght
+                    )
+                   .MinBy(x => x.LastAssignment);
+
+            if (levelAvailable != null)
+                return levelAvailable;
         }
         return null;
     }

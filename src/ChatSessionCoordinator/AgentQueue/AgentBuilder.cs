@@ -1,4 +1,5 @@
-﻿using ChatSessionCoordinator.Models.Entities;
+﻿using ChatSessionCoordinator.Configurations;
+using ChatSessionCoordinator.Models.Entities;
 using ChatSessionCoordinator.Models.Enums;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,10 +8,12 @@ namespace ChatSessionCoordinator.AgentQueue;
 public class AgentBuilder :IAgentBuilder
 {
     private readonly IServiceProvider _provider;
+    private readonly SessionCoordinatorConfiguration _configuration;
 
-    public AgentBuilder(IServiceProvider provider)
+    public AgentBuilder(IServiceProvider provider,SessionCoordinatorConfiguration configuration)
     {
         _provider = provider;
+        _configuration = configuration;
     }
     private readonly List<Agent> agents = new();
 
@@ -21,7 +24,7 @@ public class AgentBuilder :IAgentBuilder
 
     public AgentBuilder AddTeamWithAgent(int Id, string name, int junior, int midLevel, int senior, int teamLead, AgentShifts shift)
     {
-        var team = new Team { Id = Id, Name = name };
+        var team = new Team(_configuration) { Id = Id, Name = name };
 
         for (int i = 0; i < junior; i++)
         {
