@@ -9,4 +9,9 @@ public class RedisAgentQueue : IAgentQueue
     {
         throw new NotImplementedException();
     }
+
+    public Task<ActorChat?> GetChatById(Guid chatId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -19,4 +19,9 @@ public class InMemoryAgentQueue : IAgentQueue
         return true;
     }
 
+    public async Task<ActorChat?> GetChatById(Guid chatId)
+    {
+        await Task.Yield();
+        return agentQueue.FirstOrDefault(c => c.ChatId == chatId);
+    }
 }

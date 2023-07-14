@@ -15,17 +15,18 @@ public class Agent
     public required string AgentName { get; set; }
     public string AgentDescription { get; set; } = string.Empty;
     public required AgentLevel AgentLevel { get; set; }
-    public required AgentShifts Shift { get; set; }
+    public required AgentShifts? Shift { get; set; }
     public AgentStatuses Statuses { get; set; }
     public IAgentQueue Queue { get; }
+    public DateTime LastAssignment { get; set; }= DateTime.MinValue;
 
 
-    public void AddToTeam(Team newTeam)
+    public void AddToTeam(Team? newTeam)
     {
         if (Team != null && Team != newTeam) Team.Remove(this);
-        if (newTeam.Agents.Contains(this)) return;
+        if (newTeam != null && newTeam.Agents.Contains(this)) return;
 
         Team = newTeam;
-        Team.Add(this);
+        Team?.Add(this);
     }
 }

@@ -5,27 +5,32 @@ namespace ChatSessionCoordinator.SessionQueue;
 
 public class RedisSessionQueue : ISessionQueue
 {
-    public Task<bool> queueChat(ActorChatCreateDto actorChat)
+    public Task<bool> EnQueueChat(ActorChatCreateDto actorChat)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ActorChat> pollChat(Guid chatId)
+    public Task<ActorChat> GetChatById(Guid chatId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> resolveChat(Guid chatId)
+    public Task<bool> ResolveChat(Guid chatId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> refuseChat(Guid chatId)
+    public Task<bool> RefuseChat(Guid chatId)
     {
         throw new NotImplementedException();
     }
 
-    public Task<bool> inactiveChat(Guid chatId)
+    public Task<bool> InactiveChat(Guid chatId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<ActorChat?> DequeueChat()
     {
         throw new NotImplementedException();
     }

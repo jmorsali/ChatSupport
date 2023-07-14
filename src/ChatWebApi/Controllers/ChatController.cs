@@ -22,14 +22,14 @@ namespace ChatWebApi.Controllers
         [HttpPut(Name = "Create")]
         public async Task<ActionResult<ChatCreateResponse>> CreateChatSession([FromBody] ChatCreateRequest chatCreateRequest)
         {
-            await _sessionQueue.queueChat(chatCreateRequest.Map());
+            await _sessionQueue.EnQueueChat(chatCreateRequest.Map());
             return Ok(new ChatCreateResponse());
         }
 
         [HttpGet(Name = "Poll")]
         public async Task<ActionResult<ChatPollResponse>> PollChatSession(Guid chatId)
         {
-            var chat = await _sessionQueue.pollChat(chatId);
+            var chat = await _sessionQueue.GetChatById(chatId);
             return Ok(chat.MapToPollResponse());
         }
     }

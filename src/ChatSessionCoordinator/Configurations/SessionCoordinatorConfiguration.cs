@@ -14,5 +14,8 @@ public class SessionCoordinatorConfiguration
     [Range(5, 20)]
     public int MaxAgentConcurrency { get; set; }
 
+    [Required]
+    [Range(1, 10)]
+    public int OverFlowCount { get; set; }
 }
 

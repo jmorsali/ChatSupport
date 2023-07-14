@@ -5,9 +5,10 @@ namespace ChatSessionCoordinator.SessionQueue;
 
 public interface ISessionQueue
 {
-    public Task<bool> queueChat(ActorChatCreateDto actorChat);
-    public Task<ActorChat> pollChat(Guid chatId);
-    public Task<bool> resolveChat(Guid chatId);
-    public Task<bool> refuseChat(Guid chatId);
-    public Task<bool> inactiveChat(Guid chatId);
+    public Task<bool> EnQueueChat(ActorChatCreateDto actorChat);
+    public Task<ActorChat?> GetChatById(Guid chatId);
+    public Task<bool> ResolveChat(Guid chatId);
+    public Task<bool> RefuseChat(Guid chatId);
+    public Task<bool> InactiveChat(Guid chatId);
+    public Task<ActorChat?> DequeueChat();
 }

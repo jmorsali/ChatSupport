@@ -10,4 +10,5 @@ public class ActorChat
     public List<byte[]>? Attachments { get; set; }
     public ChatStatus Status { get; set; }
     public Agent? AssignedAgent { get; set; }
+    public int PollingCount { get; set; } = 0;
 }
