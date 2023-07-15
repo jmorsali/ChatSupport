@@ -1,11 +1,12 @@
 ﻿using ChatSessionCoordinator.Models.Entities;
 using System.Collections.Concurrent;
+using ChatSessionCoordinator.Models.Enums;
 
 namespace ChatSessionCoordinator.AgentQueue;
 
 public class InMemoryAgentQueue : IAgentQueue
 {
-    private ConcurrentQueue<ActorChat> agentQueue { get; set; }
+    private readonly ConcurrentQueue<ActorChat> agentQueue;
     public InMemoryAgentQueue()
     {
         agentQueue = new ConcurrentQueue<ActorChat>();
@@ -16,8 +17,10 @@ public class InMemoryAgentQueue : IAgentQueue
 
     public async Task<bool> QueueChat(ActorChat actorChat)
     {
-
         agentQueue.Enqueue(actorChat);
+        Agent.LastAssignment=DateTime.Now;
+        if (agentQueue.Count >= Agent.Team?.MaximumQueueLenght)
+            Agent.Statuses = AgentStatuses.Busy;
         await Task.Yield();
         return true;
     }

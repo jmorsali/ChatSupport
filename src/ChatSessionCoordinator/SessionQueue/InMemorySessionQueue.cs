@@ -1,10 +1,9 @@
 ﻿using ChatSessionCoordinator.AgentPool;
 using ChatSessionCoordinator.Configurations;
-using ChatSessionCoordinator.Models.DTOs;
 using ChatSessionCoordinator.Models.Entities;
-using ChatSessionCoordinator.Models.Mappers;
 using System.Collections.Concurrent;
 using ChatSessionCoordinator.Extension;
+using ChatSessionCoordinator.Models.Enums;
 using Microsoft.Extensions.Options;
 
 namespace ChatSessionCoordinator.SessionQueue;
@@ -24,10 +23,20 @@ public class InMemorySessionQueue : ISessionQueue
     {
         await Task.Yield();
         if (actorChatsMainQueue.Count <= _configuration.MainQueueSize)
+        {
             actorChatsMainQueue.Enqueue(actorChat);
+            actorChat.Status =ChatStatus.PendingAssignment;
+        }
         else if (DateTime.Now.IsWorkingHour() && _agentPool.HasOverflow)
+        {
             actorChatsMainQueue.Enqueue(actorChat);
-        else return false;
+            actorChat.Status =ChatStatus.PendingAssignment;
+        }
+        else
+        {
+            actorChat.Status =ChatStatus.Refused;
+            return false;
+        }
 
         return true;
     }

@@ -33,7 +33,7 @@ public class AgentBuilder :IAgentBuilder
             var agent = new Agent(agentQueue ?? throw new InvalidOperationException())
             {
                 AgentId = Guid.NewGuid(),
-                AgentName = $"Team{team.Name}_Junior{i}",
+                AgentName = $"Team{team.Name}_Junior_{i}",
                 AgentLevel = new AgentJuniorLevel(),
                 Shift = shift,
                 Statuses = AgentStatuses.Available
@@ -48,7 +48,7 @@ public class AgentBuilder :IAgentBuilder
             var agent = new Agent(agentQueue ?? throw new InvalidOperationException())
             {
                 AgentId = Guid.NewGuid(),
-                AgentName = $"Team{team.Name}_Mid{i}",
+                AgentName = $"Team{team.Name}_Mid_{i}",
                 AgentLevel = new AgentMidLevel(),
                 Shift = shift,
                 Statuses = AgentStatuses.Available
@@ -63,7 +63,7 @@ public class AgentBuilder :IAgentBuilder
             var agent = new Agent(agentQueue ?? throw new InvalidOperationException())
             {
                 AgentId = Guid.NewGuid(),
-                AgentName = $"Team{team.Name}_Senior{i}",
+                AgentName = $"Team{team.Name}_Senior_{i}",
                 AgentLevel = new AgentSenior(),
                 Shift = shift,
                 Statuses = AgentStatuses.Available
@@ -78,7 +78,7 @@ public class AgentBuilder :IAgentBuilder
             var agent = new Agent(agentQueue ?? throw new InvalidOperationException())
             {
                 AgentId = Guid.NewGuid(),
-                AgentName = $"Team{team.Name}_TeamLead{i}",
+                AgentName = $"Team{team.Name}_TeamLead_{i}",
                 AgentLevel = new AgentTeamLead(),
                 Shift = shift,
                 Statuses = AgentStatuses.Available

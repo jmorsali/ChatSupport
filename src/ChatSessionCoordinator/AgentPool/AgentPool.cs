@@ -20,6 +20,7 @@ public class AgentPool : IAgentPool
 
         var agents = _kickOfAction.Invoke(overFlowCount);
         agents.ForEach(a => a.Shift = DateTime.Now.CurrentShift());
+        agents.ForEach(a => a.IsOverflow = true);
         agents.ForEach(a => a.AddToTeam(CurrentTeam()));
         Agents.AddRange(agents);
 
@@ -42,6 +43,24 @@ public class AgentPool : IAgentPool
                 return levelAvailable;
         }
         return null;
+    }
+
+    public List<Agent> GetAvailableAgents()
+    {
+        foreach (var level in Enum.GetValues(typeof(AgentLevels)))
+        {
+            var levelAvailable = Agents
+                .Where(a =>
+                    a.AgentLevel.Level == (AgentLevels)level &&
+                    a.Statuses == AgentStatuses.Available &&
+                    a.Shift.IsActive() &&
+                    a.Queue.ItemCount < a.Team?.MaximumQueueLenght
+                )
+                .OrderBy(x => x.LastAssignment).ToList();
+
+            return levelAvailable;
+        }
+        return new List<Agent>();
     }
 
     public Team? CurrentTeam()

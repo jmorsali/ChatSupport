@@ -21,6 +21,7 @@ public class Agent
     public AgentStatuses Statuses { get; set; }
     public IAgentQueue Queue { get; }
     public DateTime LastAssignment { get; set; }= DateTime.MinValue;
+    public bool IsOverflow { get; set; }
 
     public void AddToTeam(Team? newTeam)
     {

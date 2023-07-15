@@ -5,9 +5,15 @@ VisualStudioVersion = 17.6.33829.357
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatWindow", "src\ChatWindow\ChatWindow.csproj", "{490F13AE-5F46-4371-A29B-42F272586915}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatWebApi", "src\ChatWebApi\ChatWebApi.csproj", "{7273F8BA-CF12-40F1-8D84-3852C98A5002}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatWebApi", "src\ChatWebApi\ChatWebApi.csproj", "{7273F8BA-CF12-40F1-8D84-3852C98A5002}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatSessionCoordinator", "src\ChatSessionCoordinator\ChatSessionCoordinator.csproj", "{BC5D93CF-41AE-4172-A4F0-EFB294784D53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ChatSessionCoordinator", "src\ChatSessionCoordinator\ChatSessionCoordinator.csproj", "{BC5D93CF-41AE-4172-A4F0-EFB294784D53}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{4FF14717-84B0-4CEF-B5EA-231FD243E139}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{F4C2A6F5-67B6-4987-A730-221D59E56717}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatSessionCoordinatorTest", "test\ChatSessionCoordinatorTest\ChatSessionCoordinatorTest.csproj", "{CC2C4F6A-DAC5-4B6B-B688-139998FBA770}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,9 +33,19 @@ Global
 		{BC5D93CF-41AE-4172-A4F0-EFB294784D53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC5D93CF-41AE-4172-A4F0-EFB294784D53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC5D93CF-41AE-4172-A4F0-EFB294784D53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC2C4F6A-DAC5-4B6B-B688-139998FBA770}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC2C4F6A-DAC5-4B6B-B688-139998FBA770}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC2C4F6A-DAC5-4B6B-B688-139998FBA770}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CC2C4F6A-DAC5-4B6B-B688-139998FBA770}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{490F13AE-5F46-4371-A29B-42F272586915} = {4FF14717-84B0-4CEF-B5EA-231FD243E139}
+		{7273F8BA-CF12-40F1-8D84-3852C98A5002} = {4FF14717-84B0-4CEF-B5EA-231FD243E139}
+		{BC5D93CF-41AE-4172-A4F0-EFB294784D53} = {4FF14717-84B0-4CEF-B5EA-231FD243E139}
+		{CC2C4F6A-DAC5-4B6B-B688-139998FBA770} = {F4C2A6F5-67B6-4987-A730-221D59E56717}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FB11DF86-2018-46C2-943E-F50266897AE4}
