@@ -22,19 +22,19 @@ public class InMemorySessionQueue : ISessionQueue
     public async Task<bool> EnQueueChat(ActorChat actorChat)
     {
         await Task.Yield();
-        if (actorChatsMainQueue.Count <= _configuration.MainQueueSize)
+        if (actorChatsMainQueue.Count < _configuration.MainQueueSize)
         {
             actorChatsMainQueue.Enqueue(actorChat);
-            actorChat.Status =ChatStatus.PendingAssignment;
+            actorChat.Status = ChatStatus.PendingAssignment;
         }
         else if (DateTime.Now.IsWorkingHour() && _agentPool.HasOverflow)
         {
             actorChatsMainQueue.Enqueue(actorChat);
-            actorChat.Status =ChatStatus.PendingAssignment;
+            actorChat.Status = ChatStatus.PendingAssignment;
         }
         else
         {
-            actorChat.Status =ChatStatus.Refused;
+            actorChat.Status = ChatStatus.Refused;
             return false;
         }
 
@@ -46,6 +46,13 @@ public class InMemorySessionQueue : ISessionQueue
         await Task.Yield();
         actorChatsMainQueue.TryDequeue(out var chat);
         return chat;
+    }
+
+    public async Task ReQueueChat(ActorChat actorChat)
+    {
+        await Task.Yield();
+        actorChatsMainQueue.Enqueue(actorChat);
+        actorChat.Status = ChatStatus.PendingAssignment;
     }
 
     public async Task<ActorChat?> GetChatById(Guid chatId)

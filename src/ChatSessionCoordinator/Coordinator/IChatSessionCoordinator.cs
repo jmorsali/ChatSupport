@@ -7,6 +7,6 @@ public interface ISessionCoordinator
 {
     public ISessionQueue _sessionQueue { get; }
     public void Run(CancellationToken cancellationToken) ;
-    public Task ProcessChatQueue(ActorChat chat);
+    public Task<bool> ProcessChatQueue(ActorChat chat);
 
 }

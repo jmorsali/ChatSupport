@@ -15,7 +15,7 @@ public class SessionCoordinator : ISessionCoordinator
     private readonly SessionCoordinatorConfiguration _configuration;
     public ISessionQueue _sessionQueue { get; }
 
-    public SessionCoordinator(ISessionQueue sessionQueue, IAgentPool agentPool, IOptions<SessionCoordinatorConfiguration> configuration,ILogger<ISessionCoordinator> logger)
+    public SessionCoordinator(ISessionQueue sessionQueue, IAgentPool agentPool, IOptions<SessionCoordinatorConfiguration> configuration, ILogger<ISessionCoordinator> logger)
     {
         _agentPool = agentPool;
         _logger = logger;
@@ -35,23 +35,25 @@ public class SessionCoordinator : ISessionCoordinator
                 continue;
             }
 
-            await ProcessChatQueue(chat);
+            var isQueuedSuccessfully = await ProcessChatQueue(chat);
+            if (!isQueuedSuccessfully)
+                await _sessionQueue.ReQueueChat(chat);
         }
     }
 
-    public async Task ProcessChatQueue(ActorChat chat)
+    public async Task<bool> ProcessChatQueue(ActorChat chat)
     {
         var agents = _agentPool.GetAvailableAgents();
         _logger.LogInformation($"There is {agents.Count} available");
 
         var agent = _agentPool.GetAvailableAgent();
-        if (agent == null )
+        if (agent == null)
         {
             if (!_agentPool.HasOverflow)
             {
                 _agentPool.KickOverflowTeam(_configuration.OverFlowCount);
                 _logger.LogInformation($"There is no available agent.Kicking overflow team.");
-                return;
+                return false;
             }
         }
 
@@ -63,10 +65,12 @@ public class SessionCoordinator : ISessionCoordinator
             await agent.Queue.QueueChat(chat);
             chat.Status = ChatStatus.Assigned;
             _logger.LogInformation($"new message is queued by agent {agent.AgentName}");
+            return true;
         }
         else
         {
             _logger.LogCritical($"no more agent available. system is full");
+            return false;
         }
     }
 }

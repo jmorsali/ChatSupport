@@ -34,4 +34,9 @@ public class RedisSessionQueue : ISessionQueue
     {
         throw new NotImplementedException();
     }
+
+    public Task ReQueueChat(ActorChat chat)
+    {
+        throw new NotImplementedException();
+    }
 }

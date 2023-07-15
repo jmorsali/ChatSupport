@@ -11,4 +11,5 @@ public interface ISessionQueue
     public Task<bool> RefuseChat(Guid chatId);
     public Task<bool> InactiveChat(Guid chatId);
     public Task<ActorChat?> DequeueChat();
+    Task ReQueueChat(ActorChat chat);
 }
