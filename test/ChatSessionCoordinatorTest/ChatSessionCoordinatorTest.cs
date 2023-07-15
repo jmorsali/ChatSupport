@@ -1,7 +1,6 @@
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using AutoFixture.Kernel;
-using AutoFixture.Xunit2;
 using ChatSessionCoordinator.AgentPool;
 using ChatSessionCoordinator.AgentQueue;
 using ChatSessionCoordinator.Configurations;
