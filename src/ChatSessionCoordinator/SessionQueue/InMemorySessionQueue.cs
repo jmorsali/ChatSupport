@@ -20,13 +20,13 @@ public class InMemorySessionQueue : ISessionQueue
         _agentPool = agentPool;
         actorChatsMainQueue = new ConcurrentQueue<ActorChat>();
     }
-    public async Task<bool> EnQueueChat(ActorChatCreateDto actorChat)
+    public async Task<bool> EnQueueChat(ActorChat actorChat)
     {
         await Task.Yield();
         if (actorChatsMainQueue.Count <= _configuration.MainQueueSize)
-            actorChatsMainQueue.Enqueue(actorChat.Map());
+            actorChatsMainQueue.Enqueue(actorChat);
         else if (DateTime.Now.IsWorkingHour() && _agentPool.HasOverflow)
-            actorChatsMainQueue.Enqueue(actorChat.Map());
+            actorChatsMainQueue.Enqueue(actorChat);
         else return false;
 
         return true;

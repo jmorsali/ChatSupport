@@ -1,6 +1,6 @@
-﻿namespace ChatSessionCoordinator.Models.DTOs;
+﻿namespace ChatWindow.DTOs;
 
-public record ActorChatCreateDto
+public record ChatCreateRequest
 {
     public Guid ChatId { get; set; }
     public required string Title { get; set; }

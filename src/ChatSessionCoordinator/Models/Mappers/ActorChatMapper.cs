@@ -8,20 +8,20 @@ namespace ChatSessionCoordinator.Models.Mappers;
 
 public static class ActorChatMapper
 {
-    public static ActorChat Map(this ActorChatCreateDto actorChatCreateDto)
+    public static ActorChat Map(this ChatCreateRequest chatCreateRequest)
     {
         return new ActorChat
         {
-            ChatId = actorChatCreateDto.ChatId,
-            MessageBody = actorChatCreateDto.MessageBody,
-            Title = actorChatCreateDto.Title,
+            ChatId = chatCreateRequest.ChatId,
+            MessageBody = chatCreateRequest.MessageBody,
+            Title = chatCreateRequest.Title,
             Status = ChatStatus.New
         };
     }
 
-    public static ActorChatCreateDto MapToCreateDto(this ActorChat actorChat)
+    public static ChatCreateRequest MapToCreateDto(this ActorChat actorChat)
     {
-        return new ActorChatCreateDto
+        return new ChatCreateRequest
         {
             ChatId = actorChat.ChatId,
             MessageBody = actorChat.MessageBody,
@@ -38,12 +38,6 @@ public static class ActorChatMapper
             Title = actorChat.Title,
             Status = ChatStatus.New
         };
-    }
-
-
-    public static ActorChatCreateDto Map(this ChatCreateRequest chatCreateRequest)
-    {
-        throw new NotImplementedException();
     }
 }
 

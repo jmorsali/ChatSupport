@@ -17,7 +17,7 @@ public class ClientRuner
         return new[] { createTask, pollTask };
     }
 
-    private async void SupportPolling(ServiceProvider serviceProvider)
+    private async void SupportCreator(ServiceProvider serviceProvider)
     {
         ILogger logger = serviceProvider.GetService<ILogger<Program>>();
         var client = serviceProvider.GetService<IChatApiClient>();
@@ -36,11 +36,14 @@ public class ClientRuner
             {
                 logger.LogInformation($"no agent available for {chatId}");
             }
-            await Task.Delay(TimeSpan.FromSeconds(random.Next(2000, 15000)));
+
+            var sleepDuration = random.Next(2000, 15000);
+            logger.LogWarning($"create support sleep for {sleepDuration} ms");
+            await Task.Delay(TimeSpan.FromSeconds(sleepDuration));
         }
     }
 
-    private async void SupportCreator(ServiceProvider serviceProvider)
+    private async void SupportPolling(ServiceProvider serviceProvider)
     {
         ILogger logger = serviceProvider.GetService<ILogger<Program>>();
         var client = serviceProvider.GetService<IChatApiClient>();
@@ -52,7 +55,12 @@ public class ClientRuner
             {
                 var result = await client.PollSupportRequest(chatId);
                 logger.LogInformation($"chat Id {chatId} status is ==> {result.Status}");
+
+                var sleepDuration = random.Next(1000, 3000);
+                logger.LogWarning($"poll sleep for {sleepDuration} ms");
+                await Task.Delay(TimeSpan.FromSeconds(sleepDuration));
             }
+            await Task.Delay(TimeSpan.FromSeconds(1000));
         }
     }
 }

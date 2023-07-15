@@ -27,7 +27,7 @@ namespace ChatWebApi.Controllers
         }
 
         [HttpGet("Poll/{chatId}")]
-        public async Task<ActionResult<ChatPollResponse>> PollChatSession([FromRoute]Guid chatId)
+        public async Task<ActionResult<ChatPollResponse>> PollChatSession([FromRoute] Guid chatId)
         {
             var chat = await _sessionQueue.GetChatById(chatId);
             return Ok(chat?.MapToPollResponse());

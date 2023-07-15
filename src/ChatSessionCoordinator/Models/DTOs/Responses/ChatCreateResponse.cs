@@ -1,7 +1,7 @@
 namespace ChatSessionCoordinator.Models.DTOs.Responses;
 
-public record ChatCreateResponse 
+public record ChatCreateResponse
 {
-   public bool Result {get;set;}
+    public bool Result { get; set; }
 }
 

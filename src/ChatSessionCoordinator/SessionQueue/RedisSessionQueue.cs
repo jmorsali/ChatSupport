@@ -5,12 +5,12 @@ namespace ChatSessionCoordinator.SessionQueue;
 
 public class RedisSessionQueue : ISessionQueue
 {
-    public Task<bool> EnQueueChat(ActorChatCreateDto actorChat)
+    public Task<bool> EnQueueChat(ActorChat actorChat)
     {
         throw new NotImplementedException();
     }
 
-    public Task<ActorChat> GetChatById(Guid chatId)
+    public Task<ActorChat?> GetChatById(Guid chatId)
     {
         throw new NotImplementedException();
     }
