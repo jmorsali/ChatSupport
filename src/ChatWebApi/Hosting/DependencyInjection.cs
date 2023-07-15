@@ -14,9 +14,10 @@ public static class DependencyInjection
     {
         services.AddHostedService<ChatSessionCoordinatioBackGroundService>();
 
-        services.AddSingleton<IAgentBuilder, AgentBuilder>();
+        services.AddTransient<IAgentQueue, InMemoryAgentQueue>();
+        services.AddTransient<IAgentBuilder, AgentBuilder>();
+
         services.AddSingleton<IAgentPool, AgentPool>();
-        services.AddSingleton<IAgentQueue, InMemoryAgentQueue>();
         services.AddSingleton<ISessionCoordinator, SessionCoordinator>();
         services.AddSingleton<ISessionQueue, InMemorySessionQueue>();
 

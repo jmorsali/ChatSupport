@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 
 namespace ChatWindow;
 
@@ -21,7 +20,7 @@ internal class Startup
         IConfiguration configuration = SetupConfiguration(args);
         var serviceCollection = new ServiceCollection();
 
-        serviceCollection.AddLogging(cfg => cfg.AddConsole());
+        //serviceCollection.AddLogging(cfg => cfg.AddConsole());
         serviceCollection.AddSingleton(configuration);
 
         serviceCollection.AddHttpClient<IChatApiClient, ChatApiClient>(client =>

@@ -27,7 +27,7 @@ public class ChatSessionCoordinatioBackGroundService : BackgroundService
         var agents = _agentBuilder
             .AddTeamWithAgent(1, " Team A", junior: 7, midLevel: 4, senior: 2, teamLead: 1,
                 shift: AgentShifts.From8_To16)
-           .AddTeamWithAgent(2, " Team B", junior: 5, midLevel: 2,  senior: 1, teamLead: 1,
+           .AddTeamWithAgent(2, " Team B", junior: 1, midLevel: 1,  senior: 0, teamLead: 0,
                 shift: AgentShifts.From0_To8)
             .AddTeamWithAgent(3, " Team C", junior: 3, midLevel: 1, senior: 0, teamLead: 0,
                 shift: AgentShifts.From16_To24)

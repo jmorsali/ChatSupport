@@ -13,17 +13,17 @@ public class Team
         _configuration = configuration.Value;
     }
     public required int Id { get; set; }
-    public required string Name { get; set; }
+    public required string Name { get; init; }
     public List<Agent> Agents { get; } = new();
-    public double Capacity {
+
+    private double Capacity
+    {
         get
         {
-            var availableAgents = Agents.Where(a => a.Statuses == AgentStatuses.Available);
+            var availableAgents = Agents.Where(a => a is { Statuses: AgentStatuses.Available });
             double capacity = 0;
             foreach (var a in availableAgents)
-            {
                 capacity += a.AgentLevel.SeniorityMultipliers * _configuration.MaxAgentConcurrency;
-            }
 
             return capacity;
         }

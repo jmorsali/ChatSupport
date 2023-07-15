@@ -30,14 +30,18 @@ public class AgentPool : IAgentPool
     {
         foreach (var level in Enum.GetValues(typeof(AgentLevels)))
         {
-            var levelAvailable = Agents
-                .Where(a =>
-                        a.AgentLevel.Level == (AgentLevels)level &&
-                        a.Statuses == AgentStatuses.Available &&
-                        a.Shift.IsActive() &&
-                        a.Queue.ItemCount < a.Team?.MaximumQueueLenght
-                    )
-                   .MinBy(x => x.LastAssignment);
+            var currentShiftAgent = Agents
+                                                    .Where(a => 
+                                                        a.AgentLevel.Level == (AgentLevels)level &&
+                                                        a.Statuses == AgentStatuses.Available &&
+                                                        a.Shift.IsActive() &&
+                                                        a.AgentLevel.Level == (AgentLevels)level 
+                                                        )
+                                                    .ToList();
+
+            var levelAvailable = currentShiftAgent
+                                     .Where(a => a.Queue.ItemCount < a.Team?.MaximumQueueLenght)
+                                     .MinBy(x => x.LastAssignment);
 
             if (levelAvailable != null)
                 return levelAvailable;
@@ -47,20 +51,16 @@ public class AgentPool : IAgentPool
 
     public List<Agent> GetAvailableAgents()
     {
-        foreach (var level in Enum.GetValues(typeof(AgentLevels)))
-        {
-            var levelAvailable = Agents
-                .Where(a =>
-                    a.AgentLevel.Level == (AgentLevels)level &&
-                    a.Statuses == AgentStatuses.Available &&
-                    a.Shift.IsActive() &&
-                    a.Queue.ItemCount < a.Team?.MaximumQueueLenght
-                )
-                .OrderBy(x => x.LastAssignment).ToList();
 
-            return levelAvailable;
-        }
-        return new List<Agent>();
+        var levelAvailable = Agents
+            .Where(a =>
+                a.Statuses == AgentStatuses.Available &&
+                a.Shift.IsActive() &&
+                a.Queue.ItemCount < a.Team?.MaximumQueueLenght
+            )
+            .OrderBy(x => x.LastAssignment).ToList();
+
+        return levelAvailable;
     }
 
     public Team? CurrentTeam()

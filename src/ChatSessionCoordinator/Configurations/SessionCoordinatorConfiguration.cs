@@ -7,7 +7,7 @@ public class SessionCoordinatorConfiguration
     public static readonly string SectionName = "Coordinatior";
 
     [Required]
-    [Range(10, 100)]
+    [Range(5, 50)]
     public int MainQueueSize { get; set; }
 
     [Required]
