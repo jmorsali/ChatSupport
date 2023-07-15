@@ -1,6 +1,4 @@
-using ChatSessionCoordinator.Models.Enums;
-
-namespace ChatSessionCoordinator.Models.DTOs.Responses;
+﻿namespace ChatWindow.DTOs;
 
 public class ChatPollResponse
 {

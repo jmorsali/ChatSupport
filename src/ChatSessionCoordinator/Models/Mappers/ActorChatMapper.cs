@@ -1,8 +1,8 @@
 ﻿using ChatSessionCoordinator.Models.DTOs;
 using ChatSessionCoordinator.Models.DTOs.Requests;
+using ChatSessionCoordinator.Models.DTOs.Responses;
 using ChatSessionCoordinator.Models.Entities;
 using ChatSessionCoordinator.Models.Enums;
-using ChatWebApi.Controllers;
 
 namespace ChatSessionCoordinator.Models.Mappers;
 
@@ -12,7 +12,6 @@ public static class ActorChatMapper
     {
         return new ActorChat
         {
-            Attachments = actorChatCreateDto.Attachments,
             ChatId = actorChatCreateDto.ChatId,
             MessageBody = actorChatCreateDto.MessageBody,
             Title = actorChatCreateDto.Title,
@@ -20,14 +19,25 @@ public static class ActorChatMapper
         };
     }
 
-    public static ActorChatCreateDto  MapToCreateDto(this ActorChat  actorChatCreateDto)
+    public static ActorChatCreateDto MapToCreateDto(this ActorChat actorChat)
     {
-        throw new NotImplementedException();
+        return new ActorChatCreateDto
+        {
+            ChatId = actorChat.ChatId,
+            MessageBody = actorChat.MessageBody,
+            Title = actorChat.Title
+        };
     }
 
-    public static ChatPollResponse MapToPollResponse(this ActorChat actorChatCreateDto)
+    public static ChatPollResponse MapToPollResponse(this ActorChat actorChat)
     {
-        throw new NotImplementedException();
+        return new ChatPollResponse
+        {
+            ChatId = actorChat.ChatId,
+            MessageBody = actorChat.MessageBody,
+            Title = actorChat.Title,
+            Status = ChatStatus.New
+        };
     }
 
 
